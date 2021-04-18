@@ -1,4 +1,7 @@
 /*
+Adding updated code to prevent crash
+ */
+/*
        Licensed to the Apache Software Foundation (ASF) under one
        or more contributor license agreements.  See the NOTICE file
        distributed with this work for additional information
@@ -39,7 +42,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
 import android.util.Base64;
 
 import org.apache.cordova.BuildHelper;
@@ -1381,7 +1384,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         }
 
         if (state.containsKey(IMAGE_FILE_PATH_KEY)) {
-           this.imageFilePath = state.getString(IMAGE_FILE_PATH_KEY);
+            this.imageFilePath = state.getString(IMAGE_FILE_PATH_KEY);
         }
 
         this.callbackContext = callbackContext;
