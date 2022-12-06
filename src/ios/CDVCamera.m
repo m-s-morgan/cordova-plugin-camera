@@ -1,3 +1,6 @@
+/* ProFit MOD
+ * Adding video export pass through and gif support
+ */
 /*
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements.  See the NOTICE file
@@ -212,6 +215,12 @@ static NSString* toBase64(NSData* data) {
         CDVCameraPicker* cameraPicker = [CDVCameraPicker createFromPictureOptions:pictureOptions];
         self.pickerController = cameraPicker;
 
+        /** ProFit MOD **/
+        if (IsAtLeastiOSVersion(@"11.0")) {
+            cameraPicker.videoExportPreset = AVAssetExportPresetPassthrough;
+        }
+        /** */
+
         cameraPicker.delegate = self;
         cameraPicker.callbackId = callbackId;
         // we need to capture this state for memory warnings that dealloc this object
@@ -301,7 +310,7 @@ static NSString* toBase64(NSData* data) {
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if([navigationController isKindOfClass:[UIImagePickerController class]]){
-        
+
         // If popoverWidth and popoverHeight are specified and are greater than 0, then set popover size, else use apple's default popoverSize
         NSDictionary* options = self.pickerController.pictureOptions.popoverOptions;
         if(options) {
@@ -312,9 +321,15 @@ static NSString* toBase64(NSData* data) {
                 [viewController setPreferredContentSize:CGSizeMake(popoverWidth,popoverHeight)];
             }
         }
-        
-        
+
+
         UIImagePickerController* cameraPicker = (UIImagePickerController*)navigationController;
+
+        /** ProFit MOD **/
+        if (IsAtLeastiOSVersion(@"11.0")) {
+            cameraPicker.videoExportPreset = AVAssetExportPresetPassthrough;
+        }
+        /** */
 
         if(![cameraPicker.mediaTypes containsObject:(NSString*)kUTTypeImage]){
             [viewController.navigationItem setTitle:NSLocalizedString(@"Videos", nil)];
