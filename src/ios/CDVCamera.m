@@ -617,7 +617,7 @@ static NSString* toBase64(NSData* data) {
                     else {
                         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[[self urlTransformer:[NSURL fileURLWithPath:filePath]] absoluteString]];
                     }
-                    
+
                 } else if (pickerController.sourceType != UIImagePickerControllerSourceTypeCamera || !options.usesGeolocation) {
                     // No need to save file if usesGeolocation is true since it will be saved after the location is tracked
                     NSString* extension = options.encodingType == EncodingTypePNG? @"png" : @"jpg";
@@ -816,7 +816,7 @@ static NSString* toBase64(NSData* data) {
 {
     CDVPictureOptions* options = self.pickerController.pictureOptions;
     CDVPluginResult* result = nil;
-   
+
     NSMutableData *imageDataWithExif = [NSMutableData data];
 
     if (self.metadata) {
